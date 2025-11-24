@@ -47,7 +47,6 @@ public class AdminDriver extends Driver {
         }
     }
 
-
     private void viewProduk() {
         produkService.printAllProduk();
     }
@@ -89,7 +88,7 @@ public class AdminDriver extends Driver {
             System.out.println("Gagal menyimpan produk (error yang tidak terduga)");
         System.out.println("Produk berhasil ditambahkan.");
     }
-
+    
     private void editProduk() {
         System.out.println("-- Edit Produk --");
         System.out.print("Masukkan ID produk: ");
@@ -176,5 +175,5 @@ public class AdminDriver extends Driver {
     }
 }
 
-
 }
+
