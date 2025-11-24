@@ -9,7 +9,6 @@ import java.io.FileWriter;
 import java.util.List;
 
 public class AdminFrame extends JFrame {
-
     // Asumsi: Kelas Admin, Produk, Transaksi, ProdukService, TransactionService, AuthService, 
     // dan LoginFrame/WelcomeWindow ada.
 
@@ -17,12 +16,9 @@ public class AdminFrame extends JFrame {
     private ProdukService produkService;
     private TransactionService transaksiService;
     private AuthService auth;
-    
-    // NOTE: productButtonPanel akan dibuat ulang/diperbarui di refreshProductButtons()
     private JPanel productButtonPanel; 
     private JPanel rightContentWrapper; 
     private JLabel labelInfo; 
-    
     private enum ProductActionMode { VIEW, EDIT, DELETE }
     private ProductActionMode currentMode = ProductActionMode.VIEW;
 
@@ -42,9 +38,7 @@ public class AdminFrame extends JFrame {
         JLabel title = new JLabel("Menu Admin - RASA.IN (" + admin.getFullName() + ")", SwingConstants.CENTER);
         title.setFont(new Font("Serif", Font.BOLD, 20));
 
-        // ==========================================
-        // 1. TOMBOL MENU ADMIN (LEFT - SAMA RATA)
-        // ==========================================
+        // TOMBOL MENU ADMIN (LEFT - SAMA RATA)
         
         Dimension menuButtonSize = new Dimension(200, 35); 
         
@@ -81,9 +75,7 @@ public class AdminFrame extends JFrame {
         left.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
         left.add(menu, BorderLayout.CENTER); 
 
-        // ==========================================
         // KONTEN KANAN (RIGHT) - INITIAL SETUP
-        // ==========================================
         
         rightContentWrapper = new JPanel(new BorderLayout()); 
         
@@ -98,38 +90,33 @@ public class AdminFrame extends JFrame {
         
         showProductListView();
 
-        // ===================================================
-        // LAYOUT UTAMA (GridBagLayout)
-        // ===================================================
+        
+        // LAYOUT UTAMA
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH; 
         
-        // 1. JUDUL
+        //JUDUL
         gbc.gridx = 0; gbc.gridy = 0;
         gbc.gridwidth = 2; 
         gbc.weightx = 1.0; 
         gbc.weighty = 0.0; 
         add(title, gbc);
 
-        // 2. PANEL KIRI (Tombol Menu)
+        //PANEL KIRI (Tombol Menu)
         gbc.gridx = 0; gbc.gridy = 1;
         gbc.gridwidth = 1; 
         gbc.weightx = 0.2; 
         gbc.weighty = 1.0; 
         add(left, gbc);
 
-        // 3. PANEL KANAN (Konten)
+        //PANEL KANAN (Konten)
         gbc.gridx = 1; gbc.gridy = 1;
         gbc.weightx = 0.8; 
         gbc.weighty = 1.0; 
         add(right, gbc);
 
-
-        // ===================================================
-        // EVENT LISTENERS 
-        // ===================================================
-        
+        // EVENT LISTENERS         
         btnList.addActionListener(e -> showProductListView());
         btnAdd.addActionListener(e -> showAddProductView());
         btnEdit.addActionListener(e -> showActionProductView(ProductActionMode.EDIT));
@@ -144,15 +131,13 @@ public class AdminFrame extends JFrame {
                 "Konfirmasi Logout", JOptionPane.YES_NO_OPTION);
             
             if (confirm == JOptionPane.YES_OPTION) {
-                // 1. Tutup AdminFrame saat ini
+                //Tutup AdminFrame saat ini
                 dispose();
                 
-                // 2. Tampilkan Frame Login/Welcome yang baru
+                //Tampilkan Frame Login/Welcome yang baru
                 try {
-                    // NOTE: Jika kelas login Anda bernama WelcomeWindow, ubah LoginFrame
                     new WelcomeWindow(this.auth, this.produkService, this.transaksiService).setVisible(true);
                 } catch (Exception ex) {
-                    // Fallback jika WelcomeWindow/LoginFrame belum didefinisikan atau konstruktornya berbeda:
                     JOptionPane.showMessageDialog(null, "Error: Tidak bisa memuat frame login. Pastikan kelas LoginFrame/WelcomeWindow sudah ada dan memiliki konstruktor yang benar.", "Logout Gagal", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -161,11 +146,8 @@ public class AdminFrame extends JFrame {
         this.revalidate();
         this.repaint();
     }
-    
-    // ===================================================
-    // METODE VIEW PRODUK (Daftar, Edit, Hapus)
-    // ===================================================
 
+    // METODE VIEW PRODUK (Daftar, Edit, Hapus)
     private void showProductListView() {
         currentMode = ProductActionMode.VIEW; 
         rightContentWrapper.removeAll();
@@ -179,8 +161,6 @@ public class AdminFrame extends JFrame {
 
         JScrollPane scroll = new JScrollPane(productButtonPanel);
         scroll.getViewport().setBackground(productButtonPanel.getBackground());
-        
-        // FIX SCROLLING: Tambahkan horizontal scrollbar
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         
@@ -205,8 +185,6 @@ public class AdminFrame extends JFrame {
 
         JScrollPane scroll = new JScrollPane(productButtonPanel);
         scroll.getViewport().setBackground(productButtonPanel.getBackground());
-        
-        // FIX SCROLLING: Tambahkan horizontal scrollbar
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         
@@ -234,7 +212,7 @@ public class AdminFrame extends JFrame {
             ));
             productBox.setBackground(Color.WHITE); 
             
-            // --- Panel Detail Produk (CENTER) ---
+            //Panel Detail Produk
             JPanel detailPanel = new JPanel();
             detailPanel.setLayout(new BoxLayout(detailPanel, BoxLayout.Y_AXIS));
             detailPanel.setOpaque(false); 
@@ -256,7 +234,7 @@ public class AdminFrame extends JFrame {
             detailPanel.add(detailLabel);
             detailPanel.add(Box.createVerticalGlue()); 
             
-            // --- Tombol Aksi (SOUTH) ---
+            //Tombol Aksi (SOUTH)
             JButton actionButton;
             
             if (currentMode == ProductActionMode.VIEW) {
@@ -271,7 +249,7 @@ public class AdminFrame extends JFrame {
             
             actionButton.setFont(new Font("SansSerif", Font.BOLD, 10));
             
-            // Tambahkan Listener
+            //Tambahkan Listener
             if (currentMode == ProductActionMode.VIEW) {
                    actionButton.addActionListener(e -> showProductDetail(p));
             } else if (currentMode == ProductActionMode.EDIT) {
@@ -279,8 +257,7 @@ public class AdminFrame extends JFrame {
             } else {
                 actionButton.addActionListener(e -> handleDeletion(p));
             }
-
-            // Wrapper tombol dengan padding agar tombol tidak menempel ke pinggir
+            
             JPanel buttonWrapper = new JPanel(new BorderLayout());
             buttonWrapper.setOpaque(false);
             buttonWrapper.setBorder(BorderFactory.createEmptyBorder(0, 2, 2, 2)); 
@@ -315,7 +292,7 @@ public class AdminFrame extends JFrame {
             "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
         
         if (confirm == JOptionPane.YES_OPTION) {
-            // Asumsi metode removeProduk(id) ada di ProdukService
+            
             produkService.removeProduk(p.getId());
             JOptionPane.showMessageDialog(this, "Produk terhapus.");
             showActionProductView(ProductActionMode.DELETE); 
@@ -478,13 +455,11 @@ public class AdminFrame extends JFrame {
         rightContentWrapper.repaint();
     }
     
-    // ===================================================
     // METODE VIEW: TRANSAKSI PENDING (DIUBAH KE BENTUK KOTAK)
-    // ===================================================
     private void showPendingTransactionsView() {
         currentMode = ProductActionMode.VIEW; 
         rightContentWrapper.removeAll();
-        // Label diperbarui
+  
         labelInfo.setText("Transaksi Pending (Klik 'Terima' untuk menyetujui):");
         
         // Asumsi metode getPendingTransaksi() ada di TransactionService
@@ -509,25 +484,20 @@ public class AdminFrame extends JFrame {
             
         } else {
             
-            // --- BAGIAN BARU: Menggunakan Panel Kotak ---
-            
             JPanel pendingBoxPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
             pendingBoxPanel.setBackground(new Color(245, 245, 245)); 
 
-            // Buat kotak untuk setiap transaksi pending
             for (Transaksi t : pend) {
                 pendingBoxPanel.add(createTransactionBox(t));
             }
 
             JScrollPane scroll = new JScrollPane(pendingBoxPanel);
-            // FIX SCROLLING: Horizontal dan Vertikal As Needed
+            
             scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
             scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); 
             scroll.getViewport().setBackground(pendingBoxPanel.getBackground());
             
             pendingPanel.add(scroll, BorderLayout.CENTER);
-            
-            // Hapus bagian JList sebelumnya.
             
             rightContentWrapper.add(pendingPanel, BorderLayout.CENTER);
         }
@@ -536,7 +506,7 @@ public class AdminFrame extends JFrame {
         rightContentWrapper.repaint();
     }
     
-    // --- Metode Baru: Membuat Kotak Transaksi Pending ---
+    //Metode Baru: Membuat Kotak Transaksi Pending
     private JPanel createTransactionBox(Transaksi t) {
         final int BOX_SIZE_WIDTH = 250; 
         final int BOX_SIZE_HEIGHT = 150; 
@@ -600,7 +570,7 @@ public class AdminFrame extends JFrame {
         box.add(idLabel);
         box.add(userLabel);
         box.add(dateLabel);
-        box.add(Box.createVerticalGlue()); // Untuk mendorong tombol ke bawah
+        box.add(Box.createVerticalGlue());
         box.add(totalLabel);
         box.add(Box.createRigidArea(new Dimension(0, 10)));
         box.add(btnAccept); 
@@ -608,9 +578,7 @@ public class AdminFrame extends JFrame {
         return box;
     }
     
-    // ===================================================
     // METODE VIEW: RIWAYAT TRANSAKSI (TIDAK DIUBAH)
-    // ===================================================
     private void showHistoryView() {
         currentMode = ProductActionMode.VIEW; 
         rightContentWrapper.removeAll();
@@ -691,7 +659,6 @@ public class AdminFrame extends JFrame {
 
             btnExport.addActionListener(e -> {
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter("riwayat_transaksi.txt"))) {
-                    // Tulis header
                     writer.write("ID Transaksi | Customer | Total Harga | Tanggal");
                     writer.newLine();
                     writer.write("-------------------------------------------------");
@@ -714,4 +681,5 @@ public class AdminFrame extends JFrame {
         rightContentWrapper.revalidate();
         rightContentWrapper.repaint();
     }
+
 }
