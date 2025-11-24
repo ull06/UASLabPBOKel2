@@ -47,9 +47,7 @@ public class CustomerFrame extends JFrame {
         JLabel title = new JLabel("Menu Customer - RASA.IN", SwingConstants.CENTER);
         title.setFont(new Font("Serif", Font.BOLD, 20));
 
-        // ==========================================
-        // TOMBOL MENU CUSTOMER (LEFT - WEST)
-        // ==========================================
+        // TOMBOL MENU CUSTOMER 
         JButton btnView = new JButton("Lihat Produk");
         JButton btnCart = new JButton("Lihat Keranjang");
         JButton btnCheckout = new JButton("Checkout");
@@ -71,10 +69,7 @@ public class CustomerFrame extends JFrame {
         left.setOpaque(false);
         left.add(menu, BorderLayout.CENTER);
 
-        // ==========================================
-        // DAFTAR PRODUK (RIGHT - CENTER) - INITIAL SETUP DENGAN SCROLLING FIX
-        // ==========================================
-        
+        // DAFTAR PRODUK 
         productButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10)); 
         productButtonPanel.setBackground(new Color(245, 245, 245)); 
         productButtonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
@@ -84,7 +79,7 @@ public class CustomerFrame extends JFrame {
         cartButtonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
         
         JScrollPane productScrollView = new JScrollPane(productButtonPanel);
-        // FIX SCROLLING: Horizontal dan Vertikal As Needed
+    
         productScrollView.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
         productScrollView.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); 
         productScrollView.getViewport().setBackground(productButtonPanel.getBackground());
@@ -110,21 +105,17 @@ public class CustomerFrame extends JFrame {
         add(right, BorderLayout.CENTER);
 
 
-        // ===================================================
         // EVENT LISTENERS
-        // ===================================================
         btnView.addActionListener(e -> {
             refreshProductButtons(); 
             showProductView(); 
         });
         
         btnCart.addActionListener(e -> showCartView());
-
         btnHistory.addActionListener(e -> showHistoryView()); 
-
         btnCheckout.addActionListener(e -> showCheckoutView());
 
-        // OBJEK CUSTOMER (DAN KERANJANGNYA) TETAP TERSIMPAN DI MEMORY (AuthService).
+        // OBJEK CUSTOMER (DAN KERANJANGNYA) TETAP TERSIMPAN DI MEMORY
         btnLogout.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(this, 
                 "Anda yakin ingin logout?", 
@@ -138,14 +129,12 @@ public class CustomerFrame extends JFrame {
         });
     }
 
-    // ===================================================
-    // METODE: MENAMPILKAN VIEW PRODUK (GRID) - SCROLLING FIX
-    // ===================================================
+    // METODE: MENAMPILKAN VIEW PRODUK
     private void showProductView() {
         rightContentWrapper.removeAll();
         
         JScrollPane productScrollView = new JScrollPane(productButtonPanel);
-        // FIX SCROLLING: Horizontal dan Vertikal As Needed
+        
         productScrollView.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
         productScrollView.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); 
         productScrollView.getViewport().setBackground(productButtonPanel.getBackground());
@@ -158,9 +147,7 @@ public class CustomerFrame extends JFrame {
         rightContentWrapper.repaint();
     }
     
-    // ===================================================
     // METODE: MENAMPILKAN VIEW KERANJANG
-    // ===================================================
     private void showCartView() {
         Keranjang cart = customer.getCart();
         
@@ -183,7 +170,7 @@ public class CustomerFrame extends JFrame {
             refreshCartButtons(); 
             
             JScrollPane cartScrollPane = new JScrollPane(cartButtonPanel);
-            // FIX SCROLLING: Horizontal dan Vertikal As Needed
+            
             cartScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             cartScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
             cartScrollPane.getViewport().setBackground(cartButtonPanel.getBackground());
@@ -222,9 +209,7 @@ public class CustomerFrame extends JFrame {
         rightContentWrapper.repaint();
     }
     
-    // ===================================================
-    // METODE: REFRESH TOMBOL KERANJANG (KOTAK-KOTAK)
-    // ===================================================
+    // METODE: REFRESH TOMBOL KERANJANG
     private void refreshCartButtons() {
         cartButtonPanel.removeAll(); 
         
@@ -286,7 +271,6 @@ public class CustomerFrame extends JFrame {
                 }
             });
 
-            
             cartItemBox.add(Box.createRigidArea(new Dimension(0, 5)));
             cartItemBox.add(nameLabel);
             cartItemBox.add(qtyLabel);
@@ -304,9 +288,7 @@ public class CustomerFrame extends JFrame {
         cartButtonPanel.repaint(); 
     }
     
-    // ===================================================
-    // METODE: MENAMPILKAN VIEW CHECKOUT (DIBUAT KOTAK-KOTAK)
-    // ===================================================
+    // METODE: MENAMPILKAN VIEW CHECKOUT
     private void showCheckoutView() {
         Keranjang cart = customer.getCart();
         
@@ -329,12 +311,11 @@ public class CustomerFrame extends JFrame {
             return; 
         }
         
-        // --- 1. Panel Utama Checkout ---
+        //Panel Utama Checkout
         JPanel checkoutPanel = new JPanel(new BorderLayout(10, 10));
         checkoutPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // --- 2. Detail Item dan Total (Kotak-kotak dengan Checkbox) ---
-        
+        //Detail Item dan Total
         // List untuk melacak checkbox agar total bisa dihitung
         List<JCheckBox> itemCheckboxes = new ArrayList<>();
         List<CartItem> cartItems = cart.getItems();
@@ -342,7 +323,7 @@ public class CustomerFrame extends JFrame {
         JPanel itemSelectionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         itemSelectionPanel.setBackground(new Color(245, 245, 245));
         
-        // Hitung total awal (semua dicentang secara default)
+        // Hitung total awal
         double initialTotal = 0;
 
         for (CartItem ci : cartItems) {
@@ -383,7 +364,7 @@ public class CustomerFrame extends JFrame {
         detailWrapper.add(itemScrollPane, BorderLayout.CENTER);
         
         
-        // --- 3. Panel Metode Pembayaran (Radio Button) ---
+        //Panel Metode Pembayaran
         JPanel paymentPanel = new JPanel(new GridLayout(0, 1, 5, 5));
         paymentPanel.setBorder(BorderFactory.createTitledBorder("Pilih Metode Pembayaran"));
         
@@ -405,7 +386,7 @@ public class CustomerFrame extends JFrame {
         topPanel.add(paymentPanel, BorderLayout.NORTH);
         topPanel.add(detailWrapper, BorderLayout.CENTER);
 
-        // --- 4. Tombol Konfirmasi Checkout ---
+        //Tombol Konfirmasi Checkout
         JButton btnConfirmCheckout = new JButton("Konfirmasi dan Bayar");
         btnConfirmCheckout.setFont(new Font("SansSerif", Font.BOLD, 14));
         
@@ -419,10 +400,10 @@ public class CustomerFrame extends JFrame {
         
         rightContentWrapper.add(checkoutPanel, BorderLayout.CENTER);
         
-        // --- 5. Aksi Konfirmasi ---
+        //Aksi Konfirmasi
         btnConfirmCheckout.addActionListener(e -> {
             
-            // 1. Ambil item yang dicentang
+            //Ambil item yang dicentang
             List<CartItem> selectedItems = new ArrayList<>();
             for (JCheckBox cb : itemCheckboxes) {
                 if (cb.isSelected()) {
@@ -435,8 +416,7 @@ public class CustomerFrame extends JFrame {
                 return;
             }
             
-            // 2. Buat Keranjang/Transaksi sementara dari item terpilih
-            
+            //Buat Keranjang/Transaksi sementara dari item terpilih
             Keranjang checkoutCart = new Keranjang(); 
             checkoutCart.getItems().addAll(selectedItems); // Asumsi Keranjang memiliki getter/setter items
             
@@ -463,11 +443,10 @@ public class CustomerFrame extends JFrame {
                     return;
                 }
                 
-                // LOGIKA PENTING: Membuat transaksi hanya dari item terpilih
                 Transaksi t = transactionService.createTransaksi(customer, checkoutCart, pembayaran);
                 JOptionPane.showMessageDialog(this, "Checkout sukses! ID: " + t.getId());
                 
-                // 3. HAPUS item yang sudah dibeli dari keranjang customer yang asli
+                //HAPUS item yang sudah dibeli dari keranjang customer yang asli
                 customer.getCart().getItems().removeAll(selectedItems);
                 
                 showCartView(); // Refresh tampilan keranjang
@@ -482,9 +461,7 @@ public class CustomerFrame extends JFrame {
         rightContentWrapper.repaint();
     }
     
-    // ===================================================
     // METODE BARU: MEMBUAT KOTAK CHECKOUT ITEM
-    // ===================================================
     private JPanel createCheckoutBox(CartItem ci) {
         final int BOX_SIZE_WIDTH = 250; 
         final int BOX_SIZE_HEIGHT = 120; 
@@ -537,9 +514,7 @@ public class CustomerFrame extends JFrame {
         return box;
     }
     
-    // ===================================================
     // METODE: MENAMPILKAN VIEW RIWAYAT TRANSAKSI (TABEL)
-    // ===================================================
     private void showHistoryView() {
         rightContentWrapper.removeAll();
         
@@ -561,7 +536,7 @@ public class CustomerFrame extends JFrame {
             historyPanel.add(centerWrapper, BorderLayout.CENTER);
             
         } else {
-            // 1. Setup Model Tabel
+            //Setup Model Tabel
             String[] columnNames = {"ID Transaksi", "Total Harga", "Tgl Transaksi", "Status"};
             DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
                 @Override
@@ -570,7 +545,7 @@ public class CustomerFrame extends JFrame {
                 }
             };
             
-            // 2. Isi Data ke Model
+            //Isi Data ke Model
             for (Transaksi t : hist) {
                 String status = t.isAccepted() ? "DITERIMA" : "PENDING";
                 
@@ -582,14 +557,14 @@ public class CustomerFrame extends JFrame {
                 });
             }
             
-            // 3. Buat JTable
+            //Buat JTable
             JTable historyTable = new JTable(model);
             historyTable.setFont(new Font("SansSerif", Font.PLAIN, 12));
             historyTable.setRowHeight(25);
             historyTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
             historyTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             
-            // 4. Renderer untuk pewarnaan Status (Rata Tengah)
+            //Renderer untuk pewarnaan Status (Rata Tengah)
             historyTable.getColumnModel().getColumn(3).setCellRenderer(new DefaultTableCellRenderer() {
                 @Override
                 public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -618,7 +593,7 @@ public class CustomerFrame extends JFrame {
                 }
             });
 
-            // Renderer untuk Total Harga (Rata Kanan)
+            // Renderer untuk Total Harga
             historyTable.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
                 @Override
                 public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -628,16 +603,13 @@ public class CustomerFrame extends JFrame {
                 }
             });
             
-            // Pengaturan Lebar Kolom (opsional)
+            // Pengaturan Lebar Kolom
             historyTable.getColumnModel().getColumn(0).setPreferredWidth(100);
             historyTable.getColumnModel().getColumn(1).setPreferredWidth(100);
             historyTable.getColumnModel().getColumn(2).setPreferredWidth(150);
 
-
             JScrollPane historyScrollPane = new JScrollPane(historyTable);
             historyPanel.add(historyScrollPane, BorderLayout.CENTER);
-            
-            // Tambahkan event listener untuk melihat detail transaksi 
             historyTable.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -645,7 +617,6 @@ public class CustomerFrame extends JFrame {
                         int row = historyTable.getSelectedRow();
                         if (row != -1) {
                             String id = (String) historyTable.getValueAt(row, 0);
-                            // Cari objek Transaksi yang sesuai
                             Transaksi t = hist.stream().filter(trans -> trans.getId().equals(id)).findFirst().orElse(null);
                             
                             if (t != null) {
@@ -663,10 +634,7 @@ public class CustomerFrame extends JFrame {
         rightContentWrapper.repaint();
     }
 
-
-    // ===================================================
     // DIALOG UNTUK DETAIL TRANSAKSI
-    // ===================================================
     private void showTransactionDetailDialog(Transaksi t) {
         JDialog detailDialog = new JDialog(this, "Detail Transaksi: " + t.getId(), true);
         detailDialog.setLayout(new BorderLayout(10, 10));
@@ -717,9 +685,7 @@ public class CustomerFrame extends JFrame {
         detailDialog.setVisible(true);
     }
     
-    // ===================================================
     // REFRESH TOMBOL PRODUK (GRID/PETAK) 
-    // ===================================================
     private void refreshProductButtons() {
         productButtonPanel.removeAll(); 
         
@@ -785,9 +751,7 @@ public class CustomerFrame extends JFrame {
         productButtonPanel.repaint(); 
     }
     
-    // ===================================================
     // DIALOG UNTUK DETAIL PRODUK & BELI 
-    // ===================================================
     private void showProductDetailDialog(Produk p, Keranjang cart) {
         
         JPanel contentPanel = new JPanel(new GridBagLayout());
@@ -901,4 +865,5 @@ public class CustomerFrame extends JFrame {
     }
     
  
+
 }
