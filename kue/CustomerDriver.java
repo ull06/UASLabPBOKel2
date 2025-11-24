@@ -41,13 +41,6 @@ public class CustomerDriver extends Driver {
         }
     }
 
-    // private void viewProducts() {
-    //     System.out.println("-- Daftar Produk --");
-    //     for (Produk p : produkService.getAll()) {
-    //         System.out.println(p.getId() + " - " + p.getName() + " - Rp" + p.getPrice() + " - stok: " + p.getStok());
-    //     }
-    // }
-
     private void viewProducts() {
         produkService.printAllProduk();
     }
@@ -70,7 +63,7 @@ public class CustomerDriver extends Driver {
         }
     }
 
-
+    
     private void viewCart() {
         System.out.println("-- Keranjang --");
         List<CartItem> items = customer.getCart().getItems();
@@ -85,7 +78,7 @@ public class CustomerDriver extends Driver {
         System.out.println("Total: Rp" + customer.getCart().totalHarga());
     }
 
-
+    
     private void checkout() {
         if (customer.getCart().getItems().isEmpty()) {
             System.out.println("Keranjang kosong.");
@@ -150,3 +143,4 @@ public class CustomerDriver extends Driver {
     }
     
 }
+
