@@ -1,0 +1,7 @@
+T1 | user1 | 50000.0
+T2 | budi | 100000.0
+T3 | budi | 70000.0
+T4 | budi | 40000.0
+T5 | annisa | 50000.0
+T6 | annisa | 50000.0
+T7 | annisa | 20000.0

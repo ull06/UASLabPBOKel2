@@ -1,0 +1,6 @@
+annisa;123;a;CUSTOMER;new york;082213456789;an
+imut;123;ulya;ADMIN;-;-;-
+budi;111;Budi Santoso;CUSTOMER;Jl. Mawar;08123;a@gmail.com
+admin;123;Admin Satu;ADMIN;-;-;-
+ulya;ulya123;rahmatul;CUSTOMER;peudawa;098;ulya
+putro;123;putro;ADMIN;-;-;-

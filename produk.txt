@@ -1,0 +1,20 @@
+P01;srikaya;enak;20000.0;5
+P02;Lapis;Premium;50000.0;2
+P03;roti;coklat;1000.0;4
+P04;Nastar;Butter Premium;75000.0;3
+P05;Cupcake;Strawberry Manis;15000.0;8
+P06;Brownies;Moist dan rich;55000.0;7
+P07;Donat;Empuk dan gurih;12000.0;10
+P08;Croissant;Mentega berkualitas;28000.0;6
+P09;Red Velvet;Cream cheese frosting;45000.0;3
+P10;Cheesecake;Soft dan creamy;60000.0;4
+P11;Pastel;Telur dan smoked beef;8000.0;12
+P12;Bento Cake;Cute mini cake;85000.0;2
+P13;Macaron;Warna-warni isi cream;10000.0;15
+P14;Kue Lumpur;Kentang lembut;5000.0;9
+P15;Pancake;Maple syrup topping;18000.0;5
+P16;Kue Putri Salju;Tabur gula halus;65000.0;4
+P17;Banana Bread;Aroma pisang kuat;30000.0;6
+P18;Cinnamon Roll;Glazed sugar;25000.0;7
+P19;Kue Sus;Isi vla lembut;7000.0;18
+P20;Puding Coklat;Saos vanila;20000.0;8
