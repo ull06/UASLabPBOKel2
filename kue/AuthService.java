@@ -13,9 +13,7 @@ public class AuthService {
         this.akunMap = new HashMap<>();
     }
 
-    // ==========================================================
     // LOAD AKUN DARI FILE → dipanggil saat program mulai
-    // ==========================================================
     public void loadAccounts() {
         try {
             akunMap = fileManager.readAccounts();
@@ -24,9 +22,7 @@ public class AuthService {
         }
     }
 
-    // ==========================================================
     // SAVE AKUN KE FILE → untuk register atau update password
-    // ==========================================================
     public void saveAccounts() {
         try {
             fileManager.writeAccounts(akunMap);
@@ -35,9 +31,7 @@ public class AuthService {
         }
     }
 
-    // ==========================================================
     // LOGIN → cek username + password
-    // ==========================================================
     public Akun login(String username, String password) {
         if (!akunMap.containsKey(username))
             return null;
@@ -51,9 +45,7 @@ public class AuthService {
         return null;
     }
 
-    // ==========================================================
     // REGISTER CUSTOMER BARU
-    // ==========================================================
     public boolean registerCustomer(Customer c) {
 
         if (akunMap.containsKey(c.getUsername())) {
@@ -81,3 +73,4 @@ public class AuthService {
         return true;
     }
 }
+
